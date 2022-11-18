@@ -3,7 +3,7 @@
 class SubstepStarter final
 {
 private:
-	int32_t stepCnt, substepCnt;
+	int stepCnt, substepCnt;
 
 public:
 	SubstepStarter() : stepCnt(0), substepCnt(0) {}
