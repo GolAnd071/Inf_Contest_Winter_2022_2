@@ -1,10 +1,19 @@
+#include <utility>
 
+template <typename T>
 class FunctionComposition final
 {
+private:
+    T m_f, m_g;
 
+public:
+    FunctionComposition(T f, T g) : m_f(f), m_g(g) {}
+
+    
 };
 
-FunctionComposition make_function_composition()
+template <typename T>
+FunctionComposition<T> make_function_composition(T f, T g)
 {
 
 }

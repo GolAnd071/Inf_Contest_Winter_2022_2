@@ -26,25 +26,39 @@ public:
 
 	~IOWrapper()
 	{
-		raw_close(m_handle);
+		if (m_handle != kNullHandle)
+			raw_close(m_handle);
+
 		m_handle = kNullHandle;
 	}
 
 	IOWrapper(IOWrapper const&) = delete;
 	IOWrapper& operator=(IOWrapper const&) = delete;
 
-	IOWrapper(IOWrapper&& other) noexcept : m_handle(std::move(other.m_handle)) {}
+	IOWrapper(IOWrapper&& other) noexcept : m_handle(other.m_handle)
+	{
+		other.m_handle = kNullHandle;
+	}
 
 	IOWrapper& operator=(IOWrapper&& other) noexcept
 	{
-		m_handle = std::move(other.m_handle);
+		if (&other == this)
+			return *this;
+
+		if (m_handle != kNullHandle)
+			raw_close(m_handle);
+
+		m_handle = other.m_handle;
+
+		other.m_handle = kNullHandle;
 
 		return *this;
 	}
 
 	void Write(const std::string& content)
 	{
-		raw_write(m_handle, content);
+		if (m_handle != kNullHandle)
+			raw_write(m_handle, content);
 	}
 };
 
