@@ -20,6 +20,8 @@ private:
 	handle_t m_handle;
 
 public:
+	IOWrapper() = delete;
+
 	IOWrapper(handle_t handle) : m_handle(handle) {}
 
 	~IOWrapper()
